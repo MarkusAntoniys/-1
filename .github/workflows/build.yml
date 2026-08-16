@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 18
-      - run: npm install   # <-- заменено с npm ci
-      - run: npx expo prebuild --platform android
+      - run: npm install
+      - run: npx expo prebuild --platform android --yes   # <-- добавлен --yes
       - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
       - uses: actions/upload-artifact@v5
         with:
