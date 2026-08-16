@@ -14,7 +14,9 @@ jobs:
         with:
           node-version: 18
       - run: npm install
-      - run: npx expo prebuild --platform android --install
+      - run: npx expo prebuild --platform android
+        env:
+          EXPO_NONINTERACTIVE: 1
       - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
       - uses: actions/upload-artifact@v5
         with:
