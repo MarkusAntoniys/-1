@@ -1,0 +1,11 @@
+node_modules/
+.expo/
+android/
+ios/
+*.log
+*.apk
+*.jks
+.env
+dist/
+build/
+.DS_Store
