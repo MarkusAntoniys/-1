@@ -1,38 +1,27 @@
-name: Build Android APK
+  - uses: actions/setup-node@v5
+    with:
+      node-version: 18
 
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+  - uses: actions/setup-java@v4
+    with:
+      distribution: 'temurin'
+      java-version: '17'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
+  - name: Install Node dependencies
+    run: |
+      npm ci
 
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 18
+  - name: Create local.properties
+    run: |
+      echo "sdk.dir=$ANDROID_HOME" > android/local.properties
 
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+  - name: Build APK
+    run: |
+      cd android
+      chmod +x gradlew
+      ./gradlew assembleRelease --stacktrace
 
-      - run: npm install
-
-      - name: Create local.properties
-        run: |
-          echo "sdk.dir=$ANDROID_HOME" > android/local.properties
-
-      - name: Build APK
-        run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleRelease --stacktrace
-
-      - uses: actions/upload-artifact@v5
-        with:
-          name: app-release
-          path: android/app/build/outputs/apk/release/*.apk
+  - uses: actions/upload-artifact@v5
+    with:
+      name: app-release
+      path: android/app/build/outputs/apk/release/*.apk
