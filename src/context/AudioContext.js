@@ -1,36 +1,56 @@
-import React, { createContext, useContext, useState, useRef } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { useAudioRecorder, RecordingPresets } from 'expo-audio';
+import { logError, logInfo } from '../utils/logger';
 
 const AudioContext = createContext(null);
 
 export const AudioProvider = ({ children }) => {
   const [isRecording, setIsRecording] = useState(false);
+  const [recordingError, setRecordingError] = useState(null);
   const audioRecorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
 
   const startRecording = async () => {
     try {
+      setRecordingError(null);
       await audioRecorder.prepareToRecordAsync();
       await audioRecorder.startAsync();
       setIsRecording(true);
+      logInfo('AudioContext', 'Recording started');
     } catch (error) {
-      console.error('Ошибка старта записи:', error);
+      logError('AudioContext.startRecording', error);
+      setRecordingError(error.message);
     }
   };
 
   const stopRecording = async () => {
     try {
+      setRecordingError(null);
       await audioRecorder.stopAsync();
       setIsRecording(false);
+      logInfo('AudioContext', 'Recording stopped');
     } catch (error) {
-      console.error('Ошибка остановки записи:', error);
+      logError('AudioContext.stopRecording', error);
+      setRecordingError(error.message);
     }
   };
 
-  return (
-    <AudioContext.Provider value={{ isRecording, startRecording, stopRecording }}>
-      {children}
-    </AudioContext.Provider>
-  );
+  const value = {
+    isRecording,
+    recordingError,
+    startRecording,
+    stopRecording,
+  };
+
+  return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>;
 };
 
-export const useAudio = () => useContext(AudioContext);
+/**
+ * Хук для использования AudioContext
+ */
+export const useAudio = () => {
+  const context = useContext(AudioContext);
+  if (!context) {
+    throw new Error('useAudio must be used within AudioProvider');
+  }
+  return context;
+};
