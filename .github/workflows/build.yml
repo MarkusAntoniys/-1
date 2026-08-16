@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
 
       - run: npm install
 
@@ -27,7 +27,10 @@ jobs:
           echo "sdk.dir=$ANDROID_HOME" > android/local.properties
 
       - name: Build APK
-        run: cd android && chmod +x gradlew && ./gradlew assembleRelease --stacktrace
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleRelease --stacktrace
 
       - uses: actions/upload-artifact@v5
         with:
