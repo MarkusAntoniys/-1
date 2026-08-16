@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Прослушка",
-    "slug": "Прослушка",
+    "name": "Eavesdrop",
+    "slug": "eavesdrop",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
@@ -11,11 +11,13 @@
     },
     "ios": {
       "supportsTablet": false,
+      "bundleIdentifier": "com.yourcompany.yourappname",
       "infoPlist": {
         "UIBackgroundModes": ["audio"]
       }
     },
     "android": {
+      "package": "com.proslyshka.proslyshka",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
