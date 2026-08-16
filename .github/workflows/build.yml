@@ -9,14 +9,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 18
+      - run: ls -la   # <-- показывает список файлов в корне
       - run: npm install
       - run: npx expo prebuild --platform android
       - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: app-release
           path: android/app/build/outputs/apk/release/*.apk
