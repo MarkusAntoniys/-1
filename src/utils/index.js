@@ -1,3 +1,4 @@
+// Storage functions
 export {
   setItem,
   getItem,
@@ -7,5 +8,14 @@ export {
   clearRecordingStops,
 } from './storage';
 
+// Logger functions
 export { logError, logInfo } from './logger';
-export { requestImagePickerPermission, pickImage } from './imageHelper';
+
+// Helper functions
+export {
+  requestImagePickerPermission,
+  pickImage,
+  formatDate,
+  validateNickname,
+  validateName,
+} from './helpers';

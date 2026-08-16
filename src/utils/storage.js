@@ -2,10 +2,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logError, logInfo } from './logger';
 
 /**
-Сохранить значение в AsyncStorage
-@param {string} key - Ключ
-@param {*} value - Значение
-*/
+ * Сохранить значение в AsyncStorage
+ * @param {string} key - Ключ
+ * @param {*} value - Значение
+ */
 export const setItem = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
@@ -16,10 +16,10 @@ export const setItem = async (key, value) => {
 };
 
 /**
-Получить значение из AsyncStorage
-@param {string} key - Ключ
-@returns {*|null} Значение или null
-*/
+ * Получить значение из AsyncStorage
+ * @param {string} key - Ключ
+ * @returns {*|null} Значение или null
+ */
 export const getItem = async (key) => {
   try {
     const data = await AsyncStorage.getItem(key);
@@ -31,9 +31,9 @@ export const getItem = async (key) => {
 };
 
 /**
-Удалить значение из AsyncStorage
-@param {string} key - Ключ
-*/
+ * Удалить значение из AsyncStorage
+ * @param {string} key - Ключ
+ */
 export const removeItem = async (key) => {
   try {
     await AsyncStorage.removeItem(key);
@@ -44,11 +44,14 @@ export const removeItem = async (key) => {
 };
 
 /**
-Добавить остановку записи (когда пользователь вышел)
-@param {string} nickname - Никнейм пользователя
-*/
+ * Добавить остановку записи (когда пользователь вышел)
+ * @param {string} nickname - Никнейм пользователя
+ */
 export const addRecordingStop = async (nickname) => {
   try {
+    if (!nickname) {
+      throw new Error('Nickname is required');
+    }
     const stops = (await getItem('recording_stops')) || [];
     stops.push({ nickname, timestamp: new Date().toISOString() });
     await setItem('recording_stops', stops);
@@ -59,9 +62,9 @@ export const addRecordingStop = async (nickname) => {
 };
 
 /**
-Получить все остановки записи
-@returns {Array} Массив остановок
-*/
+ * Получить все остановки записи
+ * @returns {Array} Массив остановок
+ */
 export const getRecordingStops = async () => {
   try {
     return (await getItem('recording_stops')) || [];
@@ -72,8 +75,8 @@ export const getRecordingStops = async () => {
 };
 
 /**
-Очистить список остановок
-*/
+ * Очистить список остановок
+ */
 export const clearRecordingStops = async () => {
   try {
     await setItem('recording_stops', []);
