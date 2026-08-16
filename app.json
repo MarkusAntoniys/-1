@@ -1,17 +1,18 @@
 {
   "expo": {
-    "name": "Eavesdrop",
-    "slug": "eavesdrop",
+    "name": "Прослушка",
+    "slug": "Прослушка",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
+    "icon": "./assets/IMG_20260808_050742_814.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/IMG_20260808_050742_814-copy-0.png",
       "resizeMode": "contain"
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.yourcompany.yourappname",
+      "bundleIdentifier": "com.proslyshka.proslyshka",
       "infoPlist": {
         "UIBackgroundModes": ["audio"]
       }
@@ -19,7 +20,7 @@
     "android": {
       "package": "com.proslyshka.proslyshka",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/IMG_20260808_050742_814.png",
         "backgroundColor": "#000000"
       },
       "permissions": [
@@ -31,7 +32,7 @@
       ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/IMG_20260808_050742_814.png"
     },
     "plugins": [
       [
