@@ -13,8 +13,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 18
-      - run: ls -la   # <-- показывает список файлов в корне
-      - run: npm install
+      - run: npm install   # <-- заменено с npm ci
       - run: npx expo prebuild --platform android
       - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
       - uses: actions/upload-artifact@v5
