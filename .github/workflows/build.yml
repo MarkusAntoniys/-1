@@ -22,7 +22,12 @@ jobs:
 
       - run: npm install
 
-      - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
+      - name: Create local.properties
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > android/local.properties
+
+      - name: Build APK
+        run: cd android && chmod +x gradlew && ./gradlew assembleRelease --stacktrace
 
       - uses: actions/upload-artifact@v5
         with:
